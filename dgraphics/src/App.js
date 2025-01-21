@@ -3,6 +3,9 @@ import './App.css';
 import Products from './components/Products';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Cart from './components/Cart';
+import Checkout from './components/Checkout';
+import Login from './components/Login';
+import Register from './components/Register';
 
 function App() {
   return (
@@ -13,6 +16,9 @@ function App() {
         <Routes>
           <Route path='/' element={<Products />} />
           <Route path='/cart' element={<Cart />} />
+          <Route path='/checkout' element={<Checkout />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
         </Routes>
 
       </div>
