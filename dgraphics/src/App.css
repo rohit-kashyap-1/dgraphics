@@ -5,11 +5,49 @@ body{
 .App{
   padding:30px;
 }
+.link{
+  color: orange;
+}
+.table{
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+.table td,.table th{
+  border: 1px solid white;
+  padding: 5px 10px;
+}
+input{
+  outline: none;
+  height: 30px;
+  padding-left: 10px;
+  width: 240px;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
+.grid{
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+
+  gap: 20px;
+}
+.grid .item{
+  border: 1px solid white;
+  padding: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.grid .item *{
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+.grid .item input{
+  width: 20px;
+  height: 20px;
+  display: inline;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

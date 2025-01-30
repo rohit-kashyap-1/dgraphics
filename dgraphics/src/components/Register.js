@@ -37,12 +37,12 @@ export default function Register() {
   return (
     <div>
       <form onSubmit={handleLogin}>
-        <input type='name' value={name} onChange={(e) => { setName(e.target.value) }} />
+        <input type='name' value={name} onChange={(e) => { setName(e.target.value) }}  placeholder='Name'/>
 
-        <input type='email' value={email} onChange={(e) => { setEmail(e.target.value) }} />
-        <input type='password' value={password} onChange={(e) => { setPassword(e.target.value) }} />
+        <input type='email' value={email} onChange={(e) => { setEmail(e.target.value) }}  placeholder='email'/>
+        <input type='password' value={password} onChange={(e) => { setPassword(e.target.value) }} placeholder='password' />
         <input type='password' value={cnf_password} onChange={(e)=>{setCNFPassword(e.target.value)}} placeholder='cnf password'/>
-        <button>Login</button>
+        <button>Register</button>
       </form>
       <Link to={'/login'} style={{ color: 'orange' }}>Login</Link>
     </div>
