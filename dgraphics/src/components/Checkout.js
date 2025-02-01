@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom'
 
 export default function Checkout() {
   const [addresses,setAddresses] = useState([])
-  const [address,setAddress] = useState('')
+  const [address,setAddress] = useState(null)
+  const [customerId,setCustomerId] = useState(null)
+
   useEffect(function(){
     //if user is not loggedin then redirect login
     if(localStorage.getItem('token')){
@@ -14,7 +16,7 @@ export default function Checkout() {
         if(response.data.type==true){
           //nothig to do
           //user tokenized data, userId, call api of address
-
+          setCustomerId(response.data.userId)
           axios.post('http://localhost:5000/all-address',{userId:response.data.userId}).then((response)=>{
             setAddresses(response.data.addresses)
           })
@@ -61,6 +63,13 @@ export default function Checkout() {
     }, []);
 
     const handleCheckout = async ()=>{
+      if(address===null){
+        return alert('Please select an address first')
+      }
+
+      //
+
+
 
 
       const response = await fetch('http://localhost:5000/create-order', {
@@ -83,10 +92,35 @@ export default function Checkout() {
         "image": "https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/UHFbanner-MSlogo?fmt=png-alpha&bfc=off&qlt=100,1",
         "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         "handler": function (response){
-            alert(response.razorpay_payment_id);
-            alert(response.razorpay_order_id);
-            alert(response.razorpay_signature)
+
+
+            axios.post('http://localhost:5000/place-order',{
+              customerId:customerId,
+              addressId:address,
+              paymentId:response.razorpay_payment_id,
+              orderId:response.razorpay_order_id,
+              signature:response.razorpay_signature,
+              products: JSON.stringify(cart),
+              amount:total
+            }).then((response)=>{
+              console.log(response)
+              try{
+                if(response.data.type){
+                  localStorage.setItem('order',JSON.stringify(response.data))
+                  window.location='order-placed'
+                }else{
+                  alert(response.data.msg)
+                }
+              }catch(error){
+                alert(error)
+              }
+            })
+            //address,userID
+            // alert(response.razorpay_payment_id);
+            // alert(response.razorpay_order_id);
+            // alert(response.razorpay_signature)
             //save to database
+            //transaction successful
         },
         "prefill": {
             "name": "Gaurav Kumar",
